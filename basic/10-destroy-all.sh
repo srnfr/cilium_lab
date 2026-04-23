@@ -1,0 +1,1 @@
+../bgp-cplane-demo/10-destroy-all.sh
