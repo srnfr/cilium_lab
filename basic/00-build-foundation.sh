@@ -2,7 +2,7 @@
 set +x
 
 apt update
-apt install -y bridge-utils jq tcpdump curl git golang
+apt install -y bridge-utils jq tcpdump curl git golang docker-ce docker-ce-cli
 
 curl -s -LO "https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && kubectl version --client
 
@@ -27,7 +27,11 @@ HUBBLE_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/
   sudo tar xzvfC hubble-linux-${HUBBLE_ARCH}.tar.gz /usr/local/bin
   rm -f hubble-linux-${HUBBLE_ARCH}.tar.gz{,.sha256sum}
 
+# install helm
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
 kind version
 kubectl version
 cilium version
 hubble version
+helm version
