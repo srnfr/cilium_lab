@@ -10,5 +10,5 @@ region = "ams3"
 droplet_size = "s-4vcpu-8gb"
 droplet_image = "ubuntu-22-04-x64"
 
-droplet_name = "cilium_lab"
+droplet_name = "cilium-lab"
 
