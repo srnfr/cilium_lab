@@ -34,6 +34,7 @@ runcmd:
   - systemctl restart ssh
   - systemctl enable docker
   - systemctl start docker
+  - git clone ${ghrepo} /home/cilium_lab
 
 # Message de fin
 final_message: "Lab prêt après $UPTIME secondes."
