@@ -23,7 +23,7 @@ resource "digitalocean_droplet" "cilium_lab" {
   count     = var.droplet_count
   name      = "${var.droplet_name}-${count.index + 1}"
   region    = var.region
-  size      = "s-4vcpu-8gb"
+  size      = var.droplet_size
   image     = var.droplet_image
   ssh_keys  = var.ssh_keys
   user_data = "${file("cloud-init.yaml")}"
