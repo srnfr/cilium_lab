@@ -7,7 +7,7 @@ variable "droplet_image" {
   type        = string
 }
 
-resource "digitalocean_droplet" "lab" {
+resource "digitalocean_droplet" "cilium_lab" {
   count     = var.droplet_count
   name      = "${var.droplet_name}-${count.index + 1}"
   region    = var.region
