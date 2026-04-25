@@ -26,11 +26,12 @@ users:
   - name: root
     lock-passwd: false
     plain_text_passwd: '${root_password}'
+
 ssh_pwauth: true
 
 runcmd:
-  - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin yes/' /etc/ssh/sshd_config
-  - sed -i -e '/^PasswordAuthentication/s/^.*$/PasswordAuthentication yes/' /etc/ssh/sshd_config
+  - echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+  - echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
   - systemctl restart ssh
   - systemctl enable docker
   - systemctl start docker
