@@ -24,9 +24,11 @@ variable "droplet_size" {
 }
 
 variable "root_password" {
-  description = "Mot de passe root SSH"
   type        = string
-  sensitive   = true   # masqué dans les logs Terraform Cloud
+}
+
+variable "ghrepo" {
+  type        = string
 }
 
 resource "digitalocean_droplet" "cilium-lab" {
@@ -39,7 +41,7 @@ resource "digitalocean_droplet" "cilium-lab" {
   ##user_data = "${file("cloud-init.yaml")}"
 
   user_data = templatefile("${path.module}/cloud-init.yaml.tpl", {
-    root_password = var.root_password
+    root_password = var.root_password, ghrepo = var.ghrepo
   })
   tags = ["lab", "terraform"]
 }
