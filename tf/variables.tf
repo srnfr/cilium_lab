@@ -5,17 +5,18 @@ variable "do_token" {
 
 variable "ssh_key_name" {
   type        = string
-  default     = "ma-cle-ssh"
-}
-
-variable "droplet_name" {
-  type        = string
-  default     = "cilium_lab"
+  default     = "3274777"
 }
 
 variable "region" {
   type        = string
   default     = "ams3"   # Amsterdam — changer selon besoin
+}
+
+
+variable "droplet_name" {
+  type        = string
+  default     = "cilium_lab"
 }
 
 variable "droplet_count" {
