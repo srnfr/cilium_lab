@@ -1,18 +1,10 @@
-terraform {
-  required_providers {
-    digitalocean = {
-      source  = "digitalocean/digitalocean"
-      version = "~> 2.0"
-    }
-  }
+
+variable "ssh_keys" {
+  default = []
 }
 
-provider "digitalocean" {
-  token = var.do_token
-}
-
-data "digitalocean_ssh_key" "main" {
-  name = var.ssh_key_name
+variable "droplet_image" {
+  type        = string
 }
 
 resource "digitalocean_droplet" "lab" {
@@ -20,9 +12,9 @@ resource "digitalocean_droplet" "lab" {
   name      = "${var.droplet_name}-${count.index + 1}"
   region    = var.region
   size      = "s-4vcpu-8gb"
-  image     = "ubuntu-22-04-x64"
-  ssh_keys  = [data.digitalocean_ssh_key.main.id]
-  user_data = file("${path.module}/cloud-init.yaml")
+  image     = var.droplet_image
+  ssh_keys  = var.ssh_keys
+  user_data = "${file("cloud-init.yaml")}"
 
   tags = ["lab", "terraform"]
 }
