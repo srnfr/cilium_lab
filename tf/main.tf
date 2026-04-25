@@ -19,6 +19,10 @@ variable "region" {
   type        = string
 }
 
+variable "droplet_size" {
+  type        = string
+}
+
 resource "digitalocean_droplet" "cilium_lab" {
   count     = var.droplet_count
   name      = "${var.droplet_name}-${count.index + 1}"
