@@ -12,7 +12,7 @@ variable "droplet_name" {
 }
 
 variable "droplet_count" {
-  type        = integer
+  type        = string
 }
 
 variable "region" {
