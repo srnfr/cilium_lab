@@ -35,7 +35,8 @@ runcmd:
   - systemctl restart ssh
   - systemctl enable docker
   - systemctl start docker
-  - git clone ${ghrepo} /home/cilium_lab
+  - git clone -q ${ghrepo} /home/cilium_lab
+  - cd /home/cilium_lab/basic && bash ./00-build-foundation.sh
 
 # Message de fin
 final_message: "Lab prêt après $UPTIME secondes."

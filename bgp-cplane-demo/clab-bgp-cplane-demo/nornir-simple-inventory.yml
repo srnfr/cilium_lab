@@ -1,0 +1,36 @@
+---
+router0:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.2
+server0:
+    username: 
+    password: 
+    platform: linux
+    hostname: 
+server1:
+    username: 
+    password: 
+    platform: linux
+    hostname: 
+server2:
+    username: 
+    password: 
+    platform: linux
+    hostname: 
+server3:
+    username: 
+    password: 
+    platform: linux
+    hostname: 
+tor0:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.4
+tor1:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.3

@@ -28,7 +28,7 @@ HUBBLE_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/
   rm -f hubble-linux-${HUBBLE_ARCH}.tar.gz{,.sha256sum}
 
 # install helm
-curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+curl -s https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 kind version
 kubectl version
