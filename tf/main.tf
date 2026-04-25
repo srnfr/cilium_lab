@@ -7,6 +7,18 @@ variable "droplet_image" {
   type        = string
 }
 
+variable "droplet_name" {
+  type        = string
+}
+
+variable "droplet_count" {
+  type        = integer
+}
+
+variable "region" {
+  type        = string
+}
+
 resource "digitalocean_droplet" "cilium_lab" {
   count     = var.droplet_count
   name      = "${var.droplet_name}-${count.index + 1}"
