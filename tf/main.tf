@@ -43,5 +43,4 @@ resource "digitalocean_droplet" "cilium-lab" {
   user_data = templatefile("${path.module}/cloud-init.yaml.tpl", {
     root_password = var.root_password, ghrepo = var.ghrepo
   })
-  tags = ["lab", "terraform"]
 }
