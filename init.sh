@@ -68,7 +68,6 @@ fi
 echo "--- Krew ---"
 kubectl krew list
 if [ $(kubectl krew list  | wc -l) -lt 4 ] ; then
-  kubectl krew install cilium
   kubectl krew index add kvaps https://github.com/kvaps/krew-index
   kubectl krew install kvaps/node-shell
   kubectl krew install stern
@@ -91,11 +90,6 @@ if ! k9s version ; then
 else
 	echo "k9s deja installe"
 fi
-
-for i in $(kubectl get node -o json | jq -r '.items[].metadata.name'); do
-	  kubectl cilium exec $i cilium version
-	  kubectl cilium exec $i cilium status
-done
 
 
 echo "----"
