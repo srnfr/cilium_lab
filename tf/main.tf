@@ -33,7 +33,7 @@ variable "ghrepo" {
 
 resource "digitalocean_droplet" "cilium-lab" {
   count     = var.droplet_count
-  name      = "${var.droplet_name}-${count.index + 1}"
+  name      = "${var.droplet_name}-${count.index}"
   region    = var.region
   size      = var.droplet_size
   image     = var.droplet_image
