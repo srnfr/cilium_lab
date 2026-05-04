@@ -30,6 +30,10 @@ HUBBLE_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/
 # install helm
 curl -s https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
+#install nsenter
+cd /home/cilium_lab
+git clone https://github.com/alexei-led/nsenter.git
+
 kind version
 kubectl version
 cilium version
