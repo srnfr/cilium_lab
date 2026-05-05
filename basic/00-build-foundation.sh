@@ -9,7 +9,11 @@ cat << EOF | sudo tee /etc/sysctl.d/99-inotify.conf
 fs.inotify.max_user_watches=524288
 fs.inotify.max_user_instances=1024
 EOF
-sudo sysctl -p /etc/sysctl.d/99-inotify.conf
+sysctl -p /etc/sysctl.d/99-inotify.conf
+
+## k alias
+echo "alias k=kubectl" >> ~/.bashrc
+echo "complete -F __start_kubectl k" >> ~/.bashrc
 
 ## Containerlab
 bash -c "$(curl -sL https://get.containerlab.dev)"
