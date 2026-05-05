@@ -57,6 +57,3 @@ kubectl --namespace kube-system create secret generic cilium-ztunnel-secrets \
 
 echo "Secret cilium-ztunnel-secrets créé."
 SCRIPT
-
-chmod +x /tmp/gen-ztunnel-secrets.sh
-bash /tmp/gen-ztunnel-secrets.sh
