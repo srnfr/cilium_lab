@@ -4,8 +4,14 @@ set +x
 apt update
 apt install -y bridge-utils jq tcpdump curl git golang docker-ce docker-ce-cli
 
+cat << EOF | sudo tee /etc/sysctl.d/99-inotify.conf
+fs.inotify.max_user_watches=524288
+fs.inotify.max_user_instances=1024
+EOF
+sudo sysctl -p /etc/sysctl.d/99-inotify.conf
+
 rm -f /etc/nginx/sites-enabled/default
-nginx -s reload
+systemctl restart nginx
 
 curl -s -LO "https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && kubectl version --client
 
