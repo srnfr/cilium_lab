@@ -11,6 +11,11 @@ fs.inotify.max_user_instances=1024
 EOF
 sysctl -p /etc/sysctl.d/99-inotify.conf
 
+## nginx
+cp /home/cilium_lab/nginx/* /etc/nginx/sites_enabled/
+rm -f /etc/nginx/sites-enabled/default 
+systemctl restart nginx
+
 ## k alias
 echo "alias k=kubectl" >> ~/.bashrc
 echo "complete -F __start_kubectl k" >> ~/.bashrc
@@ -18,17 +23,11 @@ echo "complete -F __start_kubectl k" >> ~/.bashrc
 ## Containerlab
 bash -c "$(curl -sL https://get.containerlab.dev)"
 
-## nginx (TP14)
-rm -f /etc/nginx/sites-enabled/default
-systemctl restart nginx
-
 ##kubctl
 curl -s -LO "https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && kubectl version --client
 
 ## Kind
-rm -f /usr/local/bin/kind
-go install sigs.k8s.io/kind@v0.31.0
-mv ~/go/bin/kind /usr/local/bin/kind
+curl -s -Lo ./kind https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64 && chmod +x ./kind && sudo mv ./kind /usr/local/bin/kind
 
 ## Install Cilium et autres
   export CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/master/stable.txt)
