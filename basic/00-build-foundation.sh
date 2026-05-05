@@ -11,6 +11,9 @@ fs.inotify.max_user_instances=1024
 EOF
 sudo sysctl -p /etc/sysctl.d/99-inotify.conf
 
+## Containerlab
+bash -c "$(curl -sL https://get.containerlab.dev)"
+
 ## nginx (TP14)
 rm -f /etc/nginx/sites-enabled/default
 systemctl restart nginx
