@@ -47,6 +47,9 @@ HUBBLE_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/
   sudo tar xzvfC hubble-linux-${HUBBLE_ARCH}.tar.gz /usr/local/bin
   rm -f hubble-linux-${HUBBLE_ARCH}.tar.gz{,.sha256sum}
 
+## K9s
+curl -sL https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz | tar xz -C /tmp && sudo mv /tmp/k9s /usr/local/bin/
+
 # install helm
 curl -s https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
