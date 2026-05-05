@@ -22,6 +22,7 @@ packages:
   - docker-ce
   - docker-ce-cli
   - nginx
+  - net-tools
 
 users:
   - name: root
