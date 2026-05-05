@@ -4,17 +4,21 @@ set +x
 apt update
 apt install -y bridge-utils jq tcpdump curl git golang docker-ce docker-ce-cli
 
+## Open Files
 cat << EOF | sudo tee /etc/sysctl.d/99-inotify.conf
 fs.inotify.max_user_watches=524288
 fs.inotify.max_user_instances=1024
 EOF
 sudo sysctl -p /etc/sysctl.d/99-inotify.conf
 
+## nginx (TP14)
 rm -f /etc/nginx/sites-enabled/default
 systemctl restart nginx
 
+##kubctl
 curl -s -LO "https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && kubectl version --client
 
+## Kind
 rm -f /usr/local/bin/kind
 go install sigs.k8s.io/kind@v0.31.0
 mv ~/go/bin/kind /usr/local/bin/kind
@@ -28,6 +32,7 @@ mv ~/go/bin/kind /usr/local/bin/kind
   sudo tar -C /usr/local/bin -xzvf cilium-${GOOS}-${GOARCH}.tar.gz
   rm -f cilium-*.tar.gz{,.sha256sum}
 
+## Hubble cli
 HUBBLE_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/stable.txt)
   HUBBLE_ARCH=amd64
   if [ "$(uname -m)" = "aarch64" ]; then HUBBLE_ARCH=arm64; fi
