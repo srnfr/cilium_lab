@@ -38,7 +38,6 @@ runcmd:
   - systemctl enable docker
   - systemctl start docker
   - git clone -q ${ghrepo} /home/cilium_lab
-  - cp /home/cilium_lab/nginx/* /etc/nginx/sites_enabled/ && rm -f /etc/nginx/sites-enabled/default && systemctl restart nginx
   - cd /home/cilium_lab/basic && bash ./00-build-foundation.sh
 
 # Message de fin
