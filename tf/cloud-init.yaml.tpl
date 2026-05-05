@@ -23,6 +23,7 @@ packages:
   - docker-ce-cli
   - nginx
   - net-tools
+  - tshark
 
 users:
   - name: root
