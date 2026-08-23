@@ -6,3 +6,4 @@ krew
 get_helm.sh
 .env
 *.kubeconfig.yaml
+.terraform/
