@@ -21,14 +21,18 @@ echo "alias k=kubectl" >> ~/.bashrc
 echo "complete -F __start_kubectl k" >> ~/.bashrc
 
 ## install krew
-cd "$(mktemp -d)"
-OS="$(uname | tr '[:upper:]' '[:lower:]')"
-ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/' -e 's/aarch64$/arm64/')"
-KREW="krew-${OS}_${ARCH}"
-curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz"
-tar zxvf "${KREW}.tar.gz"
-./"${KREW}" install krew
-echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+if [ ! -x "$HOME/.krew/bin/kubectl-krew" ]; then
+  cd "$(mktemp -d)"
+  OS="$(uname | tr '[:upper:]' '[:lower:]')"
+  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/' -e 's/aarch64$/arm64/')"
+  KREW="krew-${OS}_${ARCH}"
+  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz"
+  tar zxvf "${KREW}.tar.gz"
+  ./"${KREW}" install krew
+fi
+grep -qxF 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' ~/.bashrc || \
+  echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> ~/.bashrc
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 cd /home/cilium_lab
 
 ## Containerlab

@@ -38,6 +38,31 @@ runcmd:
   - systemctl restart ssh
   - systemctl enable docker
   - systemctl start docker
+  # Installation de Krew pour kubectl.
+  - |
+    set -eu
+    krew_root=/root/.krew
+
+    if [ ! -x "$krew_root/bin/kubectl-krew" ]; then
+      tmpdir="$(mktemp -d)"
+      trap 'rm -rf "$tmpdir"' EXIT
+      cd "$tmpdir"
+
+      OS="$(uname | tr '[:upper:]' '[:lower:]')"
+      ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/' -e 's/aarch64$/arm64/')"
+      KREW="krew-$OS"_"$ARCH"
+      curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/$KREW.tar.gz"
+      tar zxvf "$KREW.tar.gz"
+      ./$KREW install krew
+    fi
+
+    cat > /etc/profile.d/krew.sh <<'EOF'
+    export KREW_ROOT=/root/.krew
+    export PATH="/root/.krew/bin:$PATH"
+    EOF
+    chmod 0644 /etc/profile.d/krew.sh
+    grep -qxF 'export PATH="/root/.krew/bin:$PATH"' /root/.bashrc || \
+      echo 'export PATH="/root/.krew/bin:$PATH"' >> /root/.bashrc
   - git clone -q ${ghrepo} /home/cilium_lab
   - cd /home/cilium_lab/basic && bash ./00-build-foundation.sh
 

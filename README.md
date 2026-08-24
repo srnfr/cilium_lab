@@ -56,7 +56,7 @@ terraform apply \
   -var='ghrepo=https://example.invalid/organisation/cilium_lab.git'
 ```
 
-Le template `tf/cloud-init.yaml.tpl` installe les paquets, active l'accès SSH par mot de passe, clone le dépôt dans `/home/cilium_lab`, puis lance `basic/00-build-foundation.sh`.
+Le template `tf/cloud-init.yaml.tpl` installe les paquets et Krew pour `kubectl`, active l'accès SSH par mot de passe, clone le dépôt dans `/home/cilium_lab`, puis lance `basic/00-build-foundation.sh`.
 
 Les Droplets sont ensuite associés au projet DigitalOcean existant `LAB` avec leurs URN. Le projet n'est pas créé ni supprimé par ce dépôt. La variable `digitalocean_project_name` peut être laissée avec sa valeur par défaut `LAB` ou remplacée dans Terraform Cloud.
 
