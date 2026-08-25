@@ -41,9 +41,10 @@ runcmd:
   # Installation de Krew pour kubectl.
   - |
     set -eu
-    krew_root=/root/.krew
+    export KREW_ROOT=/root/.krew
+    export PATH="$KREW_ROOT/bin:$PATH"
 
-    if [ ! -x "$krew_root/bin/kubectl-krew" ]; then
+    if [ ! -x "$KREW_ROOT/bin/kubectl-krew" ]; then
       tmpdir="$(mktemp -d)"
       trap 'rm -rf "$tmpdir"' EXIT
       cd "$tmpdir"

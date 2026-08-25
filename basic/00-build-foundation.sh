@@ -12,7 +12,8 @@ EOF
 sysctl -p /etc/sysctl.d/99-inotify.conf
 
 ## nginx
-cp /home/cilium_lab/nginx/* /etc/nginx/sites_enabled/
+install -d -m 0755 /etc/nginx/sites-enabled
+cp /home/cilium_lab/nginx/* /etc/nginx/sites-enabled/
 rm -f /etc/nginx/sites-enabled/default 
 systemctl restart nginx
 
@@ -21,7 +22,9 @@ echo "alias k=kubectl" >> ~/.bashrc
 echo "complete -F __start_kubectl k" >> ~/.bashrc
 
 ## install krew
-if [ ! -x "$HOME/.krew/bin/kubectl-krew" ]; then
+export KREW_ROOT="${KREW_ROOT:-$HOME/.krew}"
+export PATH="$KREW_ROOT/bin:$PATH"
+if [ ! -x "$KREW_ROOT/bin/kubectl-krew" ]; then
   cd "$(mktemp -d)"
   OS="$(uname | tr '[:upper:]' '[:lower:]')"
   ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/' -e 's/aarch64$/arm64/')"
@@ -32,7 +35,6 @@ if [ ! -x "$HOME/.krew/bin/kubectl-krew" ]; then
 fi
 grep -qxF 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' ~/.bashrc || \
   echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> ~/.bashrc
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 cd /home/cilium_lab
 
 ## Containerlab
