@@ -65,6 +65,19 @@ runcmd:
       echo 'export PATH="/root/.krew/bin:$PATH"' >> /root/.bashrc
   - git clone -q ${ghrepo} /home/cilium_lab
   - cd /home/cilium_lab/basic && bash ./00-build-foundation.sh
+  # Installation du plugin kubectl node-shell via Krew.
+  - |
+    set -eu
+    export KREW_ROOT=/root/.krew
+    export PATH="$KREW_ROOT/bin:$PATH"
+
+    if ! kubectl krew index list | awk '$1 == "kvaps" { found=1 } END { exit !found }'; then
+      kubectl krew index add kvaps https://github.com/kvaps/krew-index
+    fi
+
+    if ! kubectl krew list | awk '$1 == "node-shell" { found=1 } END { exit !found }'; then
+      kubectl krew install kvaps/node-shell
+    fi
 
 # Message de fin
-final_message: "Lab prêt après $UPTIME secondes."
+final_message: "Lab ready après $UPTIME secondes."
