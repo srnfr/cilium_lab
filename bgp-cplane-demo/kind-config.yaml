@@ -10,7 +10,6 @@ nodes:
       nodeRegistration:
         kubeletExtraArgs:
           node-ip: "10.0.1.2"
-          node-labels: "rack=rack0"
 - role: worker
   kubeadmConfigPatches:
   - |
