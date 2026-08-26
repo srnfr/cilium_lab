@@ -25,6 +25,7 @@ topology:
             vtysh -c 'conf t'
             -c 'frr defaults datacenter' 
             -c 'router bgp 65000' 
+            -c ' bgp bestpath as-path multipath-relax'
             -c ' bgp router-id 10.0.0.0' 
             -c ' no bgp ebgp-requires-policy' 
             -c ' neighbor ROUTERS peer-group' 
@@ -33,7 +34,8 @@ topology:
             -c ' neighbor net0 interface peer-group ROUTERS'
             -c ' neighbor net1 interface peer-group ROUTERS'
             -c ' address-family ipv4 unicast'
-            -c '  redistribute connected' 
+            -c '  redistribute connected'
+            -c '  maximum-paths 2' 
             -c ' exit-address-family' 
             -c '!'
     tor0: 

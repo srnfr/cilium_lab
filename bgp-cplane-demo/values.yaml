@@ -3,12 +3,12 @@ ipv4NativeRoutingCIDR: "10.0.0.0/8"
 bgpControlPlane:
   enabled: true
 k8s:
-  requireIPv4PodCIR: true
+  requireIPv4PodCIDR: true
 ipam:
   mode: kubernetes
 hubble:
-  enabled: true
-  relay:
-    enabled: true
-  ui:
-    enabled: true
+  enabled: false
+
+kubeProxyReplacement: false
+k8sServiceHost: 172.18.0.2
+k8sServicePort: 6443

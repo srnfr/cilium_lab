@@ -1,0 +1,29 @@
+routingMode: native
+ipv4NativeRoutingCIDR: "10.0.0.0/8"
+
+## add-on
+externalIPs:
+  enabled: true
+loadBalancer:
+  algorithm: maglev
+bgp:
+  ## desactive Metal LB
+  enabled: false
+  announce:
+    loadbalancerIP: true
+    podCIDR: true
+##
+
+bgpControlPlane:
+  enabled: true
+ipam:
+  mode: kubernetes
+hubble:
+  enabled: false
+
+kubeProxyReplacement: false
+k8sServiceHost: "172.18.0.2"
+k8sServicePort: 6443
+
+k8s:
+  requireIPv4PodCIDR: true
